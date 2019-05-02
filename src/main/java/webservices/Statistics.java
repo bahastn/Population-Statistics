@@ -1,10 +1,13 @@
 package webservices;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import controller.MongoDBUtil;
 import entities.Population;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -27,9 +30,19 @@ public class Statistics {
     MongoDatabase mongoDatabase = mongoClient.getDatabase("PSI_Sample_Code");
     MongoCollection mongoCollection = mongoDatabase.getCollection("population");
 
-    Document document = createPopulation().toDocument();
-    mongoCollection.insertOne(document);
-      // commit
+      //Document document = createPopulation().toDocument();
+      // mongoCollection.insertOne(document);
+      FindIterable<Document> documents = mongoCollection.find();
+      MongoCursor<Document> cursor = documents.iterator();
+      try {
+          while (cursor.hasNext()) {
+              System.out.println(cursor.next().toString());
+          }
+
+      } finally {
+          cursor.close();
+      }
+
 
   }
 
