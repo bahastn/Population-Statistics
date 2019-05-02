@@ -30,8 +30,8 @@ public class Statistics {
     MongoDatabase mongoDatabase = mongoClient.getDatabase("PSI_Sample_Code");
     MongoCollection mongoCollection = mongoDatabase.getCollection("population");
 
-      //Document document = createPopulation().toDocument();
-      // mongoCollection.insertOne(document);
+      Document document = createPopulation().toDocument();
+      mongoCollection.insertOne(document);
       FindIterable<Document> documents = mongoCollection.find();
       MongoCursor<Document> cursor = documents.iterator();
       try {
