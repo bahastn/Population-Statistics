@@ -29,13 +29,7 @@ public class Statistics {
 
     Document document = createPopulation().toDocument();
     mongoCollection.insertOne(document);
-
-
-
-
-
-
-
+      // commit
 
   }
 
